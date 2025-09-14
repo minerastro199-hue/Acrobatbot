@@ -441,7 +441,7 @@
       <h2>Referrals</h2>
       <div class="referral-card">
         <div class="ref-link-area">
-          <input type="text" id="refLink" readonly value="https://t.me/acrobat_bot?start=YOURID">
+          <input type="text" id="refLink" readonly value="https://t.me/Acrobate11_bot?start=r01988887646">
           <button class="copy-btn" id="copyRefBtn">Copy</button>
         </div>
         <div class="ref-info">
@@ -730,20 +730,10 @@
       alert("Referral link copied!");
     };
 
-    // Demo: increase referrals (simulate add)
+    // Remove demo referral logic: no points given for clicking the referral link.
     let refCountEl = document.getElementById("refCount");
     refCountEl.textContent = refCount;
-    refLinkInput.onclick = () => {
-      refCount += 1;
-      localStorage.setItem(REF_COUNT_KEY, refCount);
-      refCountEl.textContent = refCount;
-      let reward = 0.01;
-      balance += reward;
-      localStorage.setItem(BALANCE_KEY, balance);
-      updateBalanceUI();
-      updateRefLeaderboard("You", refCount);
-      alert("+0.01 Nova for referral!");
-    };
+    // No more points for clicking referral link, only UI copy functionality
 
     // Leaderboard (local)
     function updateMinerLeaderboard(name, bal) {
