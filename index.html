@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tasks & Earn Points</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { text-align:center; font-family:sans-serif; background:#fafafa; }
+    .tasks-container { margin:40px auto; max-width:350px; background:#fff; padding:20px; border-radius:10px; box-shadow:0 2px 12px #0001; }
+    h2 { margin-bottom:18px; }
+    .task-btn { width:90%; padding:13px; margin:12px 0; font-size:16px; border-radius:6px; border:none; background:#0088cc; color:#fff; cursor:pointer; transition:background 0.2s; }
+    .task-btn:hover { background:#005fa3; }
+    .points { font-size:15px; color:#444; margin-bottom:23px; }
+  </style>
+</head>
+<body>
+  <div class="tasks-container">
+    <h2>🎯 Complete Tasks & Earn Points</h2>
+    <div class="points" id="points-info">Select a task and watch the ad to earn points!</div>
+    <button class="task-btn" onclick="watchAd(1, 10)">▶️ Task 1 (10 pts)</button>
+    <button class="task-btn" onclick="watchAd(2, 15)">▶️ Task 2 (15 pts)</button>
+    <button class="task-btn" onclick="watchAd(3, 20)">▶️ Task 3 (20 pts)</button>
+  </div>
+
+  <script>
+    // Rewarded Popup function
+    function watchAd(taskId, reward) {
+      document.getElementById('points-info').textContent = "Loading ad... Please wait.";
+      // Replace with your ad provider's code as needed
+      show_9754867('pop').then(() => {
+        // User watched ad till the end or closed it (interstitial format)
+        Telegram.WebApp.sendData(JSON.stringify({task: taskId, points: reward}));
+        document.getElementById('points-info').textContent = `✅ You earned ${reward} points for Task ${taskId}!`;
+        alert(`✅ You earned ${reward} points!`);
+      }).catch(e => {
+        // Error during playing ad
+        document.getElementById('points-info').textContent = "❌ Ad failed or was closed too early. Try again.";
+        alert("❌ Ad failed. Try again.");
+      });
+    }
+
+    // Dummy ad function for demo/testing (remove if show_9754867 is already defined)
+    if (typeof show_9754867 === "undefined") {
+      window.show_9754867 = function() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            // Simulate ad success 80% of the time
+            Math.random() > 0.2 ? resolve() : reject();
+          }, 1800);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
